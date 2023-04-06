@@ -404,9 +404,10 @@ class Account < ApplicationRecord
     requested_review_at.present?
   end
 
-  def is_cat=(val)
-    update!(is_cat: ActiveModel::Type::Boolean.new.cast(val) ? true : false)
-  end
+  # def is_cat=(val)
+  #   # Currently Causes Infinite Recursion
+  #   update!(is_cat: ActiveModel::Type::Boolean.new.cast(val) ? true : false)
+  # end
 
   def requires_review_notification?
     requires_review? && !requested_review?
