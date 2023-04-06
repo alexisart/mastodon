@@ -237,6 +237,7 @@ class DeleteAccountService < BaseService
     @account.reviewed_at         = nil
     @account.requested_review_at = nil
     @account.also_known_as       = []
+    @account.is_cat              = false
     @account.avatar.destroy
     @account.header.destroy
     @account.save!

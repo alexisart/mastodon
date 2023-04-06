@@ -50,6 +50,7 @@
 #  trendable                     :boolean
 #  reviewed_at                   :datetime
 #  requested_review_at           :datetime
+#  is_cat                        :bool            default(FALSE), not null
 #
 
 class Account < ApplicationRecord
@@ -401,6 +402,10 @@ class Account < ApplicationRecord
 
   def requested_review?
     requested_review_at.present?
+  end
+
+  def is_cat=(val)
+    update!(is_cat: ActiveModel::Type::Boolean.new.cast(val) ? true : false)
   end
 
   def requires_review_notification?

@@ -8,6 +8,7 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
 
   context_extensions :manually_approves_followers, :featured, :also_known_as,
                      :moved_to, :property_value, :discoverable, :olm, :suspended
+                     :is_cat
 
   attributes :id, :type, :following, :followers,
              :inbox, :outbox, :featured, :featured_tags,
@@ -24,6 +25,7 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
   attribute :moved_to, if: :moved?
   attribute :also_known_as, if: :also_known_as?
   attribute :suspended, if: :suspended?
+  attribute :is_cat, if: :is_cat?
 
   class EndpointsSerializer < ActivityPub::Serializer
     include RoutingHelper
@@ -156,6 +158,10 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
 
   def also_known_as?
     !object.suspended? && !object.also_known_as.empty?
+  end
+
+  def is_cat?
+    object.is_cat
   end
 
   def published
